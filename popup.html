@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            white-space: nowrap;
+        }
+
+        body {
+            font-family: Roboto, Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: #f9f9fb;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #2b2a33;
+                color: #fff;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>User-Agent Changer</h1>
+    <div id="settings_list" style="display: grid;"></div>
+    <br>
+    <input type="text" id="host"><select id="ua_type"></select><input value="Add" type="button" id="add_button">
+</body>
+<script src="popup.js"></script>
+
+</html>

@@ -1,0 +1,35 @@
+{
+    "manifest_version": 2,
+    "name": "User-Agent Changer",
+    "version": "1.0",
+    "description": "",
+    "permissions": [
+        "webRequest",
+        "webRequestBlocking",
+        "<all_urls>",
+        "storage"
+    ],
+    "icons": {
+        "48": "icons/icon-48x48.png",
+        "96": "icons/icon-96x96.png"
+    },
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "content_scripts": [
+        {
+            "run_at": "document_start",
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content_script.js"
+            ]
+        }
+    ]
+}
