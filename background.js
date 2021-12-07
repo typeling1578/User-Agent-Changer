@@ -13,20 +13,20 @@ var rewriteTargetPages = [];
 const targetUrl = "<all_urls>";
 
 function rewriteUserAgentHeader(e) {
-    if (e.documentUrl !== undefined) {
-        var refurl = e.documentUrl;
+    if (e.originUrl !== undefined) {
+        var refurl = e.originUrl;
     } else {
         var refurl = e.initiator;
     }
 
-    if (refurl === undefined && e.type != "main_frame") {
+    if ((refurl === null || refurl === undefined) && !(e.type == "main_frame" || e.type == "sub_frame" || e.type == "object")) {
         //除外
         return;
     }
 
     var rewriteAble = false;
     var target_ua = "";
-    if (refurl !== undefined) {
+    if (!(e.type == "main_frame" || e.type == "sub_frame" || e.type == "object")) {
         var URL_obj = new URL(refurl);
     } else {
         var URL_obj = new URL(e.url);
@@ -45,8 +45,6 @@ function rewriteUserAgentHeader(e) {
     if (!rewriteAble) {
         return;
     }
-
-    console.log(e.url)
 
     e.requestHeaders.forEach(function (header) {
         if (header.name.toLowerCase() === "user-agent") {

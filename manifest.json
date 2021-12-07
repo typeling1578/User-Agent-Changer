@@ -29,7 +29,8 @@
             ],
             "js": [
                 "content_script.js"
-            ]
+            ],
+            "all_frames": true
         }
     ]
 }
