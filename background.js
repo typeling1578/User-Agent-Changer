@@ -57,7 +57,7 @@ window.addEventListener("ua_change_ready", function () {
     );
 
     browser.storage.local.get({
-        rewriteTargetPages: {},
+        rewriteTargetPages: [],
         storageVersion: 1
     }, function (options) {
         rewriteTargetPages = options.rewriteTargetPages;
