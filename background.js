@@ -13,20 +13,16 @@ var rewriteTargetPages = [];
 const targetUrl = "<all_urls>";
 
 function rewriteUserAgentHeader(e) {
-    if (e.originUrl !== undefined) {
-        var refurl = e.originUrl;
-    } else {
-        var refurl = e.initiator;
-    }
+    var refurl = e.documentUrl;
 
-    if ((refurl === null || refurl === undefined) && !(e.type == "main_frame" || e.type == "sub_frame" || e.type == "object")) {
+    if ((refurl === null || refurl === undefined) && e.type !== "main_frame") {
         //除外
         return;
     }
 
     var rewriteAble = false;
     var target_ua = "";
-    if (!(e.type == "main_frame" || e.type == "sub_frame" || e.type == "object")) {
+    if (e.type !== "main_frame") {
         var URL_obj = new URL(refurl);
     } else {
         var URL_obj = new URL(e.url);

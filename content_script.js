@@ -25,9 +25,9 @@ function ua_change(rewriteTargetPages) {
     }
 
     if (rewriteAble) {
-        var sc = document.createElement("script");
-        sc.text = '(function(){Object.defineProperty(navigator, "userAgent", {get: function () { return "' + target_ua + '"; }});})()';
-        document.head.appendChild(sc);
+        Object.defineProperty(navigator, "userAgent", {
+            get: function () { return target_ua; }}
+        );
     }
 }
 
