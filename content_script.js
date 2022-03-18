@@ -1,3 +1,5 @@
+var ua_preset = {};
+
 function ua_change(rewriteTargetPages) {
     var rewriteAble = false;
     var target_ua = "";
@@ -16,7 +18,7 @@ function ua_change(rewriteTargetPages) {
     if (rewriteAble) {
         Object.defineProperty(navigator, "userAgent", {
             get: function () { return target_ua; }
-        });
+        });//firefox only
     }
 }
 

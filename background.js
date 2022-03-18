@@ -3,7 +3,7 @@ var rewriteTargetPages = [];
 const targetUrl = "<all_urls>";
 
 function rewriteUserAgentHeader(e) {
-    var refurl = e.documentUrl;
+    var refurl = e.documentUrl;//firefox only
 
     if ((refurl === null || refurl === undefined) && e.type !== "main_frame") {
         //除外
@@ -40,6 +40,15 @@ function rewriteUserAgentHeader(e) {
     return { requestHeaders: e.requestHeaders };
 }
 
+function generateRandomString(n) {
+    var s = "abcdefghijklmnopqrstuvwxyz0123456789";
+    var str = "";
+    for (var i = 0; i < n; i++) {
+        str += s[Math.floor(Math.random() * s.length)];
+    }
+    return str;
+}
+
 window.addEventListener("ua_change_ready", function () {
     browser.webRequest.onBeforeSendHeaders.addListener(
         rewriteUserAgentHeader,
@@ -48,9 +57,23 @@ window.addEventListener("ua_change_ready", function () {
     );
 
     browser.storage.local.get({
-        rewriteTargetPages: []
+        rewriteTargetPages: {},
+        storageVersion: 1
     }, function (options) {
         rewriteTargetPages = options.rewriteTargetPages;
+
+        if(rewriteTargetPages.length !== 0){
+            //old version to new version
+            if(options.storageVersion === 1){//old version (v1)
+                for (var i = 0; i < rewriteTargetPages.length; i++) {
+                    rewriteTargetPages[i]["id"] = generateRandomString(12);
+                }
+                browser.storage.local.set({
+                    rewriteTargetPages: rewriteTargetPages,
+                    storageVersion: 2
+                });
+            }
+        }
     });
 
     browser.storage.onChanged.addListener(function (changes, area) {
